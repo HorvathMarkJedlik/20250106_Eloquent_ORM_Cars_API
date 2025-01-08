@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Illuminate\Http\Request;
 
+use function Pest\Laravel\json;
+
 class CarController extends Controller
 {
     /**
@@ -13,7 +15,11 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::all();
-        return $cars;
+        if($cars->isEmpty())
+        {
+            return response()->json(["message" => "No car found"], 404);
+        }
+        return response()->json($cars);
     }
 
     /**
@@ -21,15 +27,19 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Car $car)
+    public function show($id)
     {
-        //
+        $car = Car::where('id', $id)->first();
+        if(!$car){
+            return response()->json(["message" => "No car found"], 404);
+        }
+        return response()->json($car);
     }
 
     /**
