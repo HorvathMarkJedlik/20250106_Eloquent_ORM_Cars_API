@@ -28,14 +28,16 @@ class CarController extends Controller
      */
     public function store(StoreCarRequest $request)
     {
-        $car = new Car();
-        $car->type = $request->type;
-        $car->model = $request->model;
-        $car->price = $request->price;
-        $car->year = $request->year;
-        $car->color = $request->color;
-        $car->horsepower = $request->horsepower;
-        $car->save();
+        // $car = new Car();
+        // $car->type = $request->type;
+        // $car->model = $request->model;
+        // $car->price = $request->price;
+        // $car->year = $request->year;
+        // $car->color = $request->color;
+        // $car->horsepower = $request->horsepower;
+        // $car->save();
+
+        $car = Car::create($request->all()); 
 
         return response()->json($car);
     }
