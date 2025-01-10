@@ -37,7 +37,7 @@ class CarController extends Controller
         // $car->horsepower = $request->horsepower;
         // $car->save();
 
-        $car = Car::create($request->all()); 
+        $car = Car::create($request->all());
 
         return response()->json($car);
     }
@@ -80,5 +80,14 @@ class CarController extends Controller
         }
         $car->delete();
         return response()->noContent();
+    }
+
+    public function searchByType($type){
+        $car = Car::where('type', 'like', '%' . $type . '%')->get();
+        if($car->isEmpty()){
+            return response()->json(["message" => "No car found"], 404);
+        }
+        return response()->json($car);
+
     }
 }

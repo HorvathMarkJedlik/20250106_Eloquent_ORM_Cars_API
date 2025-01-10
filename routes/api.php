@@ -9,4 +9,5 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
+Route::get('/cars/search/{type}', [CarController::class, 'searchByType']);
 Route::apiResource('cars', CarController::class);
