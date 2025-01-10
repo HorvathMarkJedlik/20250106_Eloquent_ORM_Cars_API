@@ -63,8 +63,14 @@ class CarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Car $car)
+    public function destroy($id)
     {
-        //
+        $car = Car::find($id);
+        if(!$car)
+        {
+            return response()->json(["message" => "No car found"], 404);
+        }
+        $car->delete();
+        return response()->noContent();
     }
 }
