@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/cars/search/{type}', [CarController::class, 'searchByType']);
 Route::apiResource('cars', CarController::class);
 
+Route::get('categories/{category}/cars', [CategoryController::class, 'carsOfCategory']);
 Route::apiResource('categories', CategoryController::class);
