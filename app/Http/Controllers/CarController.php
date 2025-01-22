@@ -16,7 +16,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        // $cars = Car::all();
+        $cars = Car::with('category')->get();
         if($cars->isEmpty())
         {
             return response()->json(["message" => "No car found"], 404);
