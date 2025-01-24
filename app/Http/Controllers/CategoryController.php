@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CarResource;
 use App\Models\Car;
 
 class CategoryController extends Controller
@@ -69,6 +70,6 @@ class CategoryController extends Controller
 
     public function carsOfCategory($id){
         $category = Category::find($id);
-        return response()->json($category->cars);
+        return response()->json( CarResource::collection($category->cars));
     }
 }

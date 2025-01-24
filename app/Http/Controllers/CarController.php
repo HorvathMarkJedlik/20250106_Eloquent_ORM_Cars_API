@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCarRequest;
 use App\Http\Requests\UpdateCarRequest;
+use App\Http\Resources\CarResource;
 use App\Models\Car;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class CarController extends Controller
         {
             return response()->json(["message" => "No car found"], 404);
         }
-        return response()->json($cars);
+        return response()->json(CarResource::collection($cars));
     }
 
     /**
@@ -41,7 +42,7 @@ class CarController extends Controller
 
         $car = Car::create($request->all());
 
-        return response()->json($car);
+        return response()->json(new CarResource($car));
     }
 
     /**
@@ -53,7 +54,7 @@ class CarController extends Controller
         if(!$car){
             return response()->json(["message" => "No car found"], 404);
         }
-        return response()->json($car);
+        return response()->json(new CarResource($car));
     }
 
     /**
@@ -85,11 +86,11 @@ class CarController extends Controller
     }
 
     public function searchByType($type){
-        $car = Car::where('type', 'like', '%' . $type . '%')->get();
-        if($car->isEmpty()){
+        $cars = Car::where('type', 'like', '%' . $type . '%')->get();
+        if($cars->isEmpty()){
             return response()->json(["message" => "No car found"], 404);
         }
-        return response()->json($car);
+        return response()->json(CarResource::collection($cars));
 
     }
 }
